@@ -12,5 +12,5 @@ import { TasklistComponent } from './components/tasklist/tasklist.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'angular-tutorial';
+  title = 'angular-@DaniGarcia10';
 }
