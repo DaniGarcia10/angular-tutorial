@@ -11,6 +11,9 @@ export enum TaskPriority{
 }
 
 export class Task {
+    lowerPriority() {
+      throw new Error('Method not implemented.');
+    }
     id:number;
     name:string;
     description:string;

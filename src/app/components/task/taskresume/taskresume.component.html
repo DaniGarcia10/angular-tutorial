@@ -1,0 +1,30 @@
+<div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{task.name}}</h5>
+      <p class="card-text">{{task.description}}</p>
+      <p class="card-text">
+        <small class="text-muted">Prioridad: 
+          <span [ngClass]="{'text-danger': task.priority == 'H', 'text-warning': task.priority == 'M', 'text-success': task.priority == 'L'}">
+            {{ task.priority == 'H' ? 'Alta' : task.priority == 'M' ? 'Media' : 'Baja' }}
+          </span>
+          <i *ngIf="(task.priority == 'L' || task.priority == 'M') && task.status != 'C'" class="bi bi-arrow-up-circle-fill"></i>
+          <i *ngIf="(task.priority == 'H' || task.priority == 'M') && task.status != 'C'" class="bi bi-arrow-down-circle-fill"></i>
+        </small>
+      </p>
+      <p class="card-text">
+        <small class="text-muted">Estado: 
+          <span [ngClass]="{'text-danger': task.status == 'P', 'text-warning': task.status == 'IP', 'text-success': task.status == 'C'}">
+            {{ task.status == 'P' ? 'Pendiente' : task.status == 'IP' ? 'En progreso' : 'Completada' }}
+          </span>
+          <i *ngIf="task.status == 'P'" class="bi bi-play-fill"></i>
+          <i *ngIf="task.status == 'IP'" class="bi bi-check-lg"></i>
+          <i *ngIf="task.status == 'C'" class="bi bi-arrow-return-right"></i>
+        </small>
+      </p>
+      <p class="card-text"><small class="text-muted">Fecha expiración: {{task.expirationDate | date}}</small></p>
+      <div>
+        <i class="bi bi-pencil-square"></i>
+        <i class="bi bi-trash"></i>
+      </div>
+    </div>
+  </div>
