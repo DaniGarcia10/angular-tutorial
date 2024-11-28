@@ -9,8 +9,6 @@
             <span *ngSwitchCase="'P'">(Pendiente)</span>
         </h5>
 
-
-
         <div class="accordion" [id]="'accordionExample'+task.id">
             <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -56,24 +54,12 @@
 
                         </p>
                         <p class="card-text">Fecha de expiración: {{task.expirationDate}}</p>
-                        <p class="card-text">Acciones:<i class="bi bi-pencil-square"></i>
+                        <p class="card-text">Acciones:<i class="bi bi-pencil-square" (click)="onEditTask()"></i>
                             <i class="bi bi-trash" (click)="deleteTask(task.id)"></i>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
     </div>
-
 </div>

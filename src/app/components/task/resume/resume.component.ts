@@ -19,6 +19,13 @@ export class ResumeComponent {
   @Output()
   eventTaskModify = new EventEmitter<TaskEvent>();
 
+  @Output()
+  editTask = new EventEmitter<Task>();
+
+  onEditTask() {
+    this.editTask.emit(this.task);
+  }
+
   setStatus(id: number) {
     this.eventTaskModify.emit(new TaskEvent("setStatus", this.task.id))
 

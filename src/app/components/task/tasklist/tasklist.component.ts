@@ -3,14 +3,16 @@ import { Task, TaskPriority, TaskStatus } from '../../../models/task.models';
 import { CommonModule } from '@angular/common';
 import { ResumeComponent } from '../resume/resume.component';
 import { TaskEvent } from '../../../models/TaskEvent.models';
+import { TaskformComponent } from '../taskform/taskform.component';
 
 @Component({
   selector: 'app-tasklist',
   standalone: true,
-  imports: [CommonModule, ResumeComponent],
+  imports: [CommonModule, ResumeComponent, TaskformComponent],
   templateUrl: './tasklist.component.html',
   styleUrl: './tasklist.component.css'
 })
+
 export class TasklistComponent {
   tasklist: Task[] = [
     new Task(1, "Implementar autenticacion", "Configurar autenticacion de usuarios", TaskPriority.HIGH, TaskStatus.COMPLETED, new Date("2024-11-01"), new Date("2024-11-20"), false),
@@ -25,8 +27,26 @@ export class TasklistComponent {
       new Task(10, "Desplegar en producción", "Realizar el despliegue de la aplicación en producción", TaskPriority.HIGH, TaskStatus.PENDING, new Date("2024-02-01"), new Date("2024-02-10"), false)
   ]
 
-  modifyTask(taskEvent: TaskEvent) {
+  taskToEdit: Task | null = null;
 
+  addNewTask(task: Task) {
+    this.tasklist.push(task);
+  }
+
+  saveTask(updatedTask: Task) {
+    const index = this.tasklist.findIndex(task => task.id === updatedTask.id);
+    if (index > -1) {
+      this.tasklist[index] = updatedTask;
+    }
+    this.taskToEdit = null;
+  }
+
+  setTaskToEdit(task: Task) {
+    this.taskToEdit = task;
+  }
+
+
+  modifyTask(taskEvent: TaskEvent) {
     switch (taskEvent.action) {
       case "raiseifpriority":
         this.raiseifpriority(taskEvent.taskId);
@@ -53,6 +73,7 @@ export class TasklistComponent {
     for (let index = 0; index < this.tasklist.length; index++) {
       if (this.tasklist[index].id == id) {
         if (this.tasklist[index].status == TaskStatus.COMPLETED) {
+
           return;
         } else if (this.tasklist[index].status == TaskStatus.IN_PROGRESS) {
           this.tasklist[index].status = TaskStatus.COMPLETED;
